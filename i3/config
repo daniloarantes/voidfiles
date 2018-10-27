@@ -1,1 +1,186 @@
-/home/danilo/.config/i3/config
+# #########################################################
+# MODIFICADO POR Danilo Arantes - danilo@daniloarantes.com
+# ######################################################### 
+#
+##---Configurações Globais---###
+set $term --no-startup-id urxvt 
+set $desligar systemctl poweroff
+set $reiniciar systemctl reboot
+
+set $mod Mod4
+for_window [class="^.*"] border pixel 1
+gaps inner 10
+gaps outer 10
+
+exec --no-startup-id compton
+exec --no-startup-id nm-applet
+exec --no-startup-id mpd
+exec --no-startup-id feh --bg-tile Imagens/black.jpg
+
+# Definição de fonte
+font pango:Noto Mono 10
+
+# Define Mouse+$mod para arrastar janelas flutuantes
+floating_modifier $mod
+
+##---Configuração de teclas de Atalho
+# Atalho para conexão com monitor externo
+bindsym $mod+Shift+s 			exec --no-startup-id /home/danilo/.config/i3/monitor
+
+# Abrir explorador de arquivos
+bindsym $mod+r				exec $term -e ranger
+
+# Abrir player de música
+bindsym $mod+m				exec $term -e ncmpcpp
+
+# Print da tela
+bindsym $mod+Print 			exec --no-startup-id scrot
+bindsym $mod+Shift+Print		--release exec --no-startup-id scrot -s
+
+# Configuração das teclas de volume com pulseaudio
+bindsym XF86AudioRaiseVolume 		exec amixer -q -D default sset Master 5%+ && pkill -RTMIN+1 i3blocks 
+bindsym XF86AudioLowerVolume 		exec amixer -q -D default sset Master 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute 			exec amixer -q -D default sset Master toggle && pkill -RTMIN+1 i3blocks
+
+# Bloquear a tela
+bindsym $mod+l				exec --no-startup-id i3lock-fancy
+
+# Abre um novo terminal
+bindsym $mod+Return 			exec --no-startup-id urxvt
+#bindsym $mod+Return exec i3-sensible-terminal
+
+# Fecha janela selecionada 
+bindsym $mod+Shift+q 			kill
+
+# Exibe o menu de aplicações 
+bindsym $mod+d 				exec --no-startup-id i3-dmenu-desktop
+
+# Alterna foco do container pelas setas do teclado
+bindsym $mod+Left 			focus left
+bindsym $mod+Down 			focus down
+bindsym $mod+Up 			focus up
+bindsym $mod+Right 			focus right
+
+# Define posição dos containers pelas setas do teclado
+bindsym $mod+Shift+Left 		move left
+bindsym $mod+Shift+Down 		move down
+bindsym $mod+Shift+Up 			move up
+bindsym $mod+Shift+Right 		move right
+
+# Orientação horizontal para novos containers
+bindsym $mod+h 				split h
+
+# Orientação vertical para novos containers
+bindsym $mod+v 				split v
+
+# Alterna container atual para modo tela cheia 
+bindsym $mod+f 				fullscreen toggle
+
+# Define layout do container 
+bindsym $mod+s layout 			stacking
+bindsym $mod+w layout 			tabbed
+bindsym $mod+e layout 			toggle split
+
+# Alterna foco para entre janela flutuante e tiling 
+bindsym $mod+Shift+space 		floating toggle
+
+# Define janela flutuante 
+bindsym $mod+space 			focus mode_toggle
+
+# Seleciona todos os containers no workspace 
+bindsym $mod+a 				focus parent
+
+# Recarrega arquivo de configuração 
+bindsym $mod+Shift+c reload
+
+# Atualiza configurações 
+bindsym $mod+Shift+r restart
+
+# Encerrar sessão
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Deseja encerrar a sessão?' -b 'Sim, logoff' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym ccedilla resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# Redimensionar janela
+bindsym $mod+t mode "resize"
+
+# Desligar e reiniciar sistema
+bindsym $mod+Shift+BackSpace	exec i3-nagbar -m 'Deseja Desligar?' -b 'Sim' '$desligar'
+bindsym $mod+BackSpace		exec i3-nagbar -m 'Deseja Reiniciar?' -b 'Sim' '$reiniciar' 
+
+##---Teclas de função---##
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+
+##---Definição de variáveis para os Workspaces---##
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+##---Atalhos para mover containers entre Workspaces---## 
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+for_window [class="NetBeans IDE 8.2"] move workspace $ws5
+workspace $ws5 gaps inner 0
+workspace $ws5 gaps outer 0
+
+for_window [class="Gimp"] move workspace $ws5
+workspace $ws5 gaps inner 2
+workspace $ws5 gaps outer 2
+
+for_window [class="Spotify"] move workspace $ws4
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3blocks
+	position top
+}
