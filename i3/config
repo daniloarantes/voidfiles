@@ -15,7 +15,7 @@ gaps outer 10
 exec --no-startup-id compton
 exec --no-startup-id nm-applet
 exec --no-startup-id mpd
-exec --no-startup-id feh --bg-tile Imagens/black.jpg
+exec --no-startup-id feh --bg-tile ~/.config/wall.jpg
 
 # Definição de fonte
 font pango:Noto Mono 10
@@ -25,7 +25,9 @@ floating_modifier $mod
 
 ##---Configuração de teclas de Atalho
 # Atalho para conexão com monitor externo
-bindsym $mod+Shift+s 			exec --no-startup-id /home/danilo/.config/i3/monitor
+#bindsym $mod+Shift+s 			exec --no-startup-id /home/danilo/.config/i3/monitor
+bindsym $mod+Shift+s 			exec --no-startup-id /home/danilo/.config/i3/displayselect
+
 
 # Abrir explorador de arquivos
 bindsym $mod+r				exec $term -e ranger
