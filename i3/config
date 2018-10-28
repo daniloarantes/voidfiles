@@ -179,6 +179,8 @@ workspace $ws5 gaps outer 2
 
 for_window [class="Spotify"] move workspace $ws4
 
+for_window [title="Calculadora"] floating toggle
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
