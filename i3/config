@@ -12,6 +12,7 @@ for_window [class="^.*"] border pixel 1
 gaps inner 10
 gaps outer 10
 
+exec --no-startup-id numlockx on
 exec --no-startup-id compton
 exec --no-startup-id nm-applet
 exec --no-startup-id mpd
@@ -131,6 +132,8 @@ bindsym $mod+BackSpace		exec i3-nagbar -m 'Deseja Reiniciar?' -b 'Sim' '$reinici
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
 
+bindsym XF86Switch_VT_10 exec --no-startup-id arandr
+
 ##---Definição de variáveis para os Workspaces---##
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -187,4 +190,5 @@ for_window [title="Calculadora"] floating toggle
 bar {
         status_command i3blocks
 	position top
+	mode dock
 }
